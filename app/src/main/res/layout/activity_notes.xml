@@ -8,7 +8,7 @@
     android:paddingTop="10dp"
     android:paddingRight="10dp"
     android:background="@drawable/viewpager_background"
-    tools:context="com.keys.aman.notes.NotesFragment">
+    tools:context="com.keys.aman.com.talkmate.aman.notes.NotesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recview_unpinned"

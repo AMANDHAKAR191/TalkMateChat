@@ -7,11 +7,11 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.keys.aman"
+        applicationId "com.talkmate.aman"
         minSdk 27
         targetSdk 32
         versionCode 1
-        versionName "2023.2.2"
+        versionName "2023.05.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,12 +41,9 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
-//    implementation "androidx.compose.material3:material3:1.0.1"
-//    implementation "androidx.compose.material3:material3-window-size-class:1.0.1"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'com.google.firebase:firebase-database:20.0.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-firestore'
     implementation 'androidx.fragment:fragment:1.5.5'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
@@ -55,14 +52,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-beta01'
 
-    implementation 'com.google.firebase:firebase-storage:20.0.0'
-    implementation 'com.google.firebase:firebase-common-ktx:20.0.0'
-    //for csv write
-    implementation files('libs\\opencsv-4.1.jar')
-    implementation files('libs\\commons-lang3-3.6.jar')
-
     //for FCM notification
-    implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
     //for send notification
     implementation 'com.android.volley:volley:1.2.1'
 
@@ -92,8 +83,7 @@ dependencies {
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
-    //for room database
-    implementation 'androidx.room:room-runtime:2.4.2'
-    annotationProcessor 'androidx.room:room-compiler:2.4.2'
+    //Lottie Animation
+    implementation 'com.airbnb.android:lottie:6.0.0'
 
 }

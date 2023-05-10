@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.KEYS" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="Theme.TALKMATE" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryLightColor</item>
         <item name="colorPrimaryVariant">@color/primaryColor</item>
@@ -19,7 +19,7 @@
         <item name="android:windowExitTransition">@transition/left_trans_anim</item>
     </style>
     <style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="android:windowBackground">@drawable/splash_drawable</item>
+        <item name="android:windowBackground">@drawable/talkmatelogo</item>
     </style>
 
 </resources>

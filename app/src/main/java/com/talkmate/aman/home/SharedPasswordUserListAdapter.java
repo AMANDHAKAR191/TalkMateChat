@@ -1,0 +1,136 @@
+package com.talkmate.aman.home;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.talkmate.aman.R;
+import com.talkmate.aman.data.MyPreference;
+import com.talkmate.aman.home.addpassword.PasswordHelperClass;
+import com.talkmate.aman.messages.ChatModelClass;
+import com.talkmate.aman.messages.UserPersonalChatList;
+import com.talkmate.aman.notes.addnote.NoteHelperClass;
+import com.talkmate.aman.signin_login.LogInActivity;
+
+import java.util.ArrayList;
+
+public class SharedPasswordUserListAdapter extends RecyclerView.Adapter<SharedPasswordUserListAdapter.myViewHolder> {
+
+    public static final String REQUEST_ID = "UserListAdapter";
+    final int SELECTED_ITEM_MESSAGE = 0;
+    final int SELECTED_ITEM_NOTE = 1;
+    final int SELECTED_ITEM_PASSWORD = 2;
+    ArrayList<UserPersonalChatList> dataHolder;
+    LogInActivity logInActivity = new LogInActivity();
+    Context context;
+    Activity activity;
+    DatabaseReference reference;
+    SharedPreferences sharedPreferences;
+    MyPreference myPreference;
+    private NoteHelperClass noteData;
+    private PasswordHelperClass passwordData;
+    private SharedPasswordAdapter adaptorForUsersList;
+
+    public SharedPasswordUserListAdapter() {
+    }
+
+    public SharedPasswordUserListAdapter(ArrayList<UserPersonalChatList> dataHolder, Context context, Activity activity) {
+        this.dataHolder = dataHolder;
+        this.context = context;
+        this.activity = activity;
+        myPreference = MyPreference.getInstance(context);
+        System.out.println("noteData + " + noteData + " || passwordData + " + passwordData);
+        // retrieve the password data
+        this.passwordData = passwordData;
+        // Retrieve the note data
+        this.noteData = noteData;
+    }
+
+    @NonNull
+    @Override
+    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.password_user_list_layout, parent, false);
+
+        return new myViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+
+
+        String receiverPublicUid, senderPublicUid, senderRoom;
+        senderPublicUid = myPreference.getPublicUid();
+        receiverPublicUid = dataHolder.get(position).getOtherUserPublicUid();
+        System.out.println("receiverPublicUid ==>> " + receiverPublicUid);
+        senderRoom = senderPublicUid + receiverPublicUid;
+        System.out.println("senderRoom ==>> " + senderRoom);
+        reference = FirebaseDatabase.getInstance().getReference().child("messages").child(senderRoom);
+
+
+        ArrayList<PasswordHelperClass> dataHolderSharedPasswordUsers = new ArrayList<>();
+
+        holder.recyclerView.hasFixedSize();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    System.out.println("dataSnapshot ==>> " + dataSnapshot);
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        ChatModelClass tempChat = ds.getValue(ChatModelClass.class);
+                        if (!tempChat.getPublicUid().equals(senderPublicUid)) {
+                            holder.tvPublicUid.setText(dataHolder.get(position).getOtherUserPublicUid());
+                            if (tempChat.getPasswordModelClass() != null) {
+                                PasswordHelperClass tempPassword = tempChat.getPasswordModelClass();
+                                dataHolderSharedPasswordUsers.add(tempPassword);
+                                System.out.println("dataHolderSharedPasswordUsers ==>> " + dataHolderSharedPasswordUsers);
+                            }
+                        }
+                    }
+                    adaptorForUsersList = new SharedPasswordAdapter(dataHolderSharedPasswordUsers, context, activity, dataHolder.get(position).getCommonEncryptionKey(), dataHolder.get(position).getCommonEncryptionIv());
+                    holder.recyclerView.setAdapter(adaptorForUsersList);
+                    adaptorForUsersList.notifyDataSetChanged();
+                    System.out.println("dataHolderSharedPasswordUsers ==>><< " + dataHolderSharedPasswordUsers);
+                } else {
+//                    tvNote.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        dataHolderSharedPasswordUsers.clear();
+    }
+
+    @Override
+    public int getItemCount() {
+        return dataHolder.size();
+    }
+
+
+    public class myViewHolder extends RecyclerView.ViewHolder {
+
+        TextView tvPublicUid;
+        RecyclerView recyclerView;
+
+        public myViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvPublicUid = itemView.findViewById(R.id.tv_public_uid);
+            recyclerView = itemView.findViewById(R.id.recview_password_list_user_wise);
+        }
+    }
+
+}

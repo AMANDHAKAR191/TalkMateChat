@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keys.aman.authentication.BiometricAuthActivity">
+    tools:context="com.talkmate.aman.authentication.BiometricAuthActivity">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="KEYS"
+        android:text="TALKMATE"
         android:textStyle="bold|italic"
-        android:textSize="100dp"
+        android:textSize="60dp"
         android:gravity="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,14 +3,14 @@
     <item android:title="Home"
         android:id="@+id/menu_home"
         android:enabled="true"
-        android:icon="@drawable/home_new_set" />
+        android:icon="@drawable/vault" />
     <item android:title="Chat"
         android:id="@+id/menu_chat"
         android:enabled="true"
         android:icon="@drawable/chats_new_set" />
     <item android:title="@string/Notes"
         android:id="@+id/menu_notes"
-        android:icon="@drawable/notes_new_set"
+        android:icon="@drawable/outline_group_24"
         android:enabled="true"/>
     <item android:title="Setting"
         android:id="@+id/menu_setting"

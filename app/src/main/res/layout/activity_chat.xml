@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.keys.aman.messages.ChatActivity">
+    tools:context="com.talkmate.aman.messages.ChatActivity">
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_bottom"
@@ -91,6 +91,18 @@
         app:layout_constraintStart_toStartOf="@+id/cl_toolbar"
         app:layout_constraintTop_toBottomOf="@id/guideline9" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/typing_animation_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/ll_edit_message"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/processing" />
+
     <LinearLayout
         android:id="@+id/ll_edit_message"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
@@ -113,8 +125,8 @@
                 android:id="@+id/tiet_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lastBaselineToBottomHeight="25dp"
-                android:hint="Message" />
+                android:hint="Message"
+                android:lastBaselineToBottomHeight="25dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
